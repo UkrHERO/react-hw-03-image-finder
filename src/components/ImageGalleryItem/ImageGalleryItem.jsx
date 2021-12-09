@@ -17,7 +17,7 @@ export class ImageGalleryItem extends Component {
   };
 
   onClose = () => {
-    this.setState({ showModal: false });
+    this.setState({ showModal: false, src: '' });
   };
 
   render() {
@@ -44,5 +44,14 @@ export class ImageGalleryItem extends Component {
     );
   }
 }
+
+ImageGalleryItem.propTypes = {
+  images: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number,
+      ImageGalleryItem: PropTypes.string,
+    }),
+  ),
+};
 
 export default ImageGalleryItem;

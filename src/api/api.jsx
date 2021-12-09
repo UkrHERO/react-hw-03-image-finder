@@ -8,9 +8,14 @@ const api = ({ query = '', currentPage = 1 }) => {
     .get(
       `${BASE_URL}/?key=${API_KEY}&q=${query}&image_type=photo&orientation=horizontal&page=${currentPage}&per_page=12`,
     )
-    .then(response => response.data.hits);
+    .then(response => {
+      if (response.data.total === 0) {
+        return Promise.reject(new Error());
+      } else {
+        return response.data.hits;
+      }
+    });
 };
-
 const apiImages = {
   api,
 };

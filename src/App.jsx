@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import Searchbar from './components/Searchbar/Searchbar';
 import apiImages from './api/api';
 import ImageGallery from './components/ImageGallery/ImageGallery';
@@ -33,11 +32,6 @@ export class App extends Component {
       } else {
         this.setState({ status: Status.REJECTED });
       }
-
-      //   apiImages
-      //     .api(nextName)
-      //     .then(images => this.setState({ images, status: Status.RESOLVED }))
-      //     .catch(error => this.setState({ error, status: Status.REJECTED }));
     }
   }
 
@@ -56,9 +50,6 @@ export class App extends Component {
       .catch(error => this.setState({ error, status: Status.REJECTED }));
   };
   handleFormSubmit = query => {
-    // if (this.state.query.trim() === '') {
-    //   this.state.status = Status.REJECTED;
-    // }
     this.setState({ query, currentPage: 1, images: [], error: null });
   };
 
@@ -71,13 +62,13 @@ export class App extends Component {
     return (
       <div>
         <Searchbar onSubmit={this.handleFormSubmit} />
-        {status === 'rejected' && <h1>Oops... Something went wrong!</h1>}
-        {status === 'pending' && (
+        {status === Status.REJECTED && <h1>Please enter a valid name!</h1>}
+        {status === Status.PENDING && (
           <div className={s.Box}>
             <Loaderr />
           </div>
         )}
-        {status === 'resolved' && (
+        {status === Status.RESOLVED && (
           <ImageGallery images={images} onClick={this.loadMore} />
         )}
       </div>
