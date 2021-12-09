@@ -15,7 +15,6 @@ const Status = {
 export class App extends Component {
   state = {
     images: [],
-    error: null,
     status: Status.IDLE,
     query: '',
     currentPage: 1,
@@ -28,14 +27,14 @@ export class App extends Component {
     if (prevName !== nextName) {
       this.setState({ status: Status.PENDING });
       if (nextName.length > 0) {
-        this.fetchArticles();
+        this.fetchImages();
       } else {
         this.setState({ status: Status.REJECTED });
       }
     }
   }
 
-  fetchArticles = () => {
+  fetchImages = () => {
     const { currentPage, query } = this.state;
     const options = { query, currentPage };
     apiImages
@@ -47,14 +46,14 @@ export class App extends Component {
           status: Status.RESOLVED,
         }));
       })
-      .catch(error => this.setState({ error, status: Status.REJECTED }));
+      .catch(error => this.setState({ status: Status.REJECTED }));
   };
   handleFormSubmit = query => {
-    this.setState({ query, currentPage: 1, images: [], error: null });
+    this.setState({ query, currentPage: 1, images: [] });
   };
 
   loadMore = () => {
-    this.fetchArticles();
+    this.fetchImages();
   };
 
   render() {

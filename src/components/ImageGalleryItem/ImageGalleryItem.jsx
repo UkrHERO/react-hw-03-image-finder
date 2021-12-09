@@ -35,7 +35,7 @@ export class ImageGalleryItem extends Component {
         ))}
         {this.state.showModal && (
           <Modal
-            onClick={this.onImgClick}
+            // onClick={this.onImgClick}
             onClose={this.onClose}
             img={this.state.src}
           />
