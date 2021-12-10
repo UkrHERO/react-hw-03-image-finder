@@ -9,10 +9,10 @@ export class ImageGalleryItem extends Component {
     src: '',
   };
 
-  onImgClick = e => {
+  onImgClick = src => {
     this.setState(({ showModal }) => ({
       showModal: !showModal,
-      src: e.target.getAttribute('src'),
+      src,
     }));
   };
 
@@ -27,18 +27,14 @@ export class ImageGalleryItem extends Component {
           <li key={image.id} className={s.ImageGalleryItem}>
             <img
               className={s.ImageGalleryItemImage}
-              src={image.largeImageURL}
-              alt=""
-              onClick={this.onImgClick}
+              src={image.webformatURL}
+              alt="Item"
+              onClick={() => this.onImgClick(image.largeImageURL)}
             />
           </li>
         ))}
         {this.state.showModal && (
-          <Modal
-            // onClick={this.onImgClick}
-            onClose={this.onClose}
-            img={this.state.src}
-          />
+          <Modal onClose={this.onClose} img={this.state.src} />
         )}
       </>
     );
